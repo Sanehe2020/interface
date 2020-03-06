@@ -1,0 +1,230 @@
+<div class="container-fluid">
+
+    <h4 style="color: green">Dados da Prova</h4>
+    <div class='row'>
+      <div class="col-sm-2">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Ano</span>
+              </div>
+              <input type="text" class="form-control" id="ano" value="">
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Esfera</span>
+          </div>
+          <span style="width:1em;"></span>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_federal" value="Federal">
+            <label class="form-check-label" for="esf_federal">Federal</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_estadual" value="Estadual">
+            <label class="form-check-label" for="esf_estadual">Estadual</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_municipal" value="Municipal">
+            <label class="form-check-label" for="esf_municipal">Municipal</label>
+          </div>
+        </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Banca</span>
+              </div>
+              <input type="text" class="form-control" id="banca" value="">
+          </div>
+      </div>
+      <div class="col">
+          <span style="width:1em;"></span>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="tipo_mult" value="tipo_mult">
+            <label class="form-check-label" for="tipo_mult">Múltipla Escolha</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="tipo_ce" value="tipo_ce">
+            <label class="form-check-label" for="tipoo_ce">Certo ou Errado</label>
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col-sm-3">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Área</span>
+              </div>
+              <input type="text" class="form-control" id="prova_area" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_sup" value="esc_sup">
+            <label class="form-check-label" for="tipo_mult">Nível Superior</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_med" value="esc_med">
+            <label class="form-check-label" for="tipoo_ce">Nível Médio</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_fund" value="esc_fund">
+            <label class="form-check-label" for="tipoo_ce">Nível Fundamental</label>
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Órgão/Instituto</span>
+              </div>
+              <input type="text" class="form-control" id="prova_inst" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Órgão/Instituto - UF</span>
+            </div>
+            <input type="text" class="form-control" id="prova_inst_uf" value="">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Órgão/Instituto - Município</span>
+          </div>
+          <input type="text" class="form-control" id="prova_inst_mun" value="">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Supercargo</span>
+              </div>
+              <input type="text" class="form-control" id="prova_supercargo" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Cargo</span>
+            </div>
+            <input type="text" class="form-control" id="prova_cargo" value="">
+        </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col-sm-3">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Total de inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_tot" value="">
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Amplo-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_amplo" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Amplo-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_amplo" value="">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Amplo-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_amplo" value="">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Negros-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_negros" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Negros-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_negros" value="">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Negros-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_negros" value="">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Deficientes-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_def" value="">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Deficientes-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_def" value="">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Deficientes-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_def" value="">
+      </div>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" id="savetest" class="btn btn-success">Salvar</button>
+        <button type="button" id="go2quest" class="btn btn-warning">Questões</button>
+      </div>
+    </div><br>
+
+  </div>

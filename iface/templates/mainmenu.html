@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-cadastro-tab" data-toggle="pill" href="#v-pills-cadastro" role="tab" aria-controls="v-pills-cadastro" aria-selected="true">Cadastrar Nova Prova</a>
+        <a class="nav-link" id="v-pills-arquivo-tab" data-toggle="pill" href="#v-pills-arquivo" role="tab" aria-controls="v-pills-arquivo" aria-selected="false">Prova do Arquivo</a>
+        <a class="nav-link" id="v-pills-bd-tab" data-toggle="pill" href="#v-pills-bd" role="tab" aria-controls="v-pills-bd" aria-selected="false">Prova do BD</a>
+      </div>
+    </div>
+    <div class="col">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flashes alert alert-dark" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-cadastro" role="tabpanel" aria-labelledby="v-pills-home-cadastro">
+          {% include 'prova.html' %}
+        </div>
+        <div class="tab-pane fade" id="v-pills-arquivo" role="tabpanel" aria-labelledby="v-pills-arquivo-tab">
+          <form method="post" action="{{url_for('datafromfile')}}" enctype="multipart/form-data">
+            <h4 style="color: green">Importar do arquivo</h4>
+            <div class="row">
+              <div class="col-sm-3">
+                <input type="file" id="testfile" name="testfile">
+              </div>
+              <div class="col">
+                <input type="submit" value="Submit" id="fileok" class="btn btn-success">
+              </div>
+            </div>
+          </form>
+          </div>
+          <div class="tab-pane fade" id="v-pills-bd" role="tabpanel" aria-labelledby="v-pills-bd-tab">
+            <h4 style="color: green">Provas no Banco de Dados</h4>
+            <ol>
+              {% for test in dbtests %}
+              <li><button class='btn btn-light' id='test-{{test.id}}-btn'>{{test.repr}}</button></li><br>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block bodyscript %}
+<script>
+  $(document).ready(function() {
+
+    //elements on 'prova.html'
+    $('#cleartest').on('click', function(){
+      window.location.href = "{{url_for('cleartest')}}";
+    });
+
+    var params = {};
+    $('#savetest').on('click', function(){
+      params = {
+        ano : $('#ano').val(),
+        esf_federal : $('#esf_federal').prop('checked'),
+        esf_estadual : $('#esf_estadual').prop('checked'),
+        esf_municipal : $('#esf_municipal').prop('checked'),
+        banca : $('#banca').val(),
+        tipo_mult : $('#tipo_mult').prop('checked'),
+        tipo_ce : $('#tipo_ce').prop('checked'),
+        area : $('#prova_area').val(),
+        esc_sup : $('#esc_sup').prop('checked'),
+        esc_med : $('#esc_med').prop('checked'),
+        esc_fund : $('#esc_fund').prop('checked'),
+        orgao : $('#prova_inst').val(),
+        uf : $('#prova_inst_uf').val(),
+        municipio : $('#prova_inst_mun').val(),
+        supercargo : $('#prova_supercargo').val(),
+        cargo : $('#prova_cargo').val(),
+        insc_tot : $('#ninsc_tot').val(),
+        insc_amplo : $('#ninsc_amplo').val(),
+        nmax_amplo : $('#notamax_amplo').val(),
+        corte_amplo : $('#notacorte_amplo').val(),
+        insc_negros : $('#ninsc_negros').val(),
+        nmax_negros : $('#notamax_negros').val(),
+        corte_negros : $('#notacorte_negros').val(),
+        insc_def : $('#ninsc_def').val(),
+        nmax_def : $('#notamax_def').val(),
+        corte_def : $('#notacorte_def').val()
+      };
+
+      r = $.post("{{url_for('savetest')}}", params);
+      r.then(data => {window.location.href = "{{url_for('questoes')}}"});//, alert('Falha'));
+    });
+
+    {% for test in dbtests %}
+    $('#test-{{test.id}}-btn').on('click', function(){
+      r = $.post("{{url_for('datafromdb')}}", {prova_id:{{test.id}}});
+      r.then(data => {window.location.href = "{{url_for('questoes')}}"});
+    });
+    {% endfor %}
+
+  });
+
+</script>
+{% endblock %}

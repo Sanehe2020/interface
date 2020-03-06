@@ -1,0 +1,242 @@
+<div class="container-fluid">
+
+    <h4 style="color: green">Dados da Prova</h4>
+    <div class='row'>
+      <div class="col-sm-2">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Ano</span>
+              </div>
+              <input type="text" class="form-control" id="ano" value="{{prova.ano}}">
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Esfera</span>
+          </div>
+          <span style="width:1em;"></span>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_federal" value="Federal" 
+            {{ 'checked' if prova.esf_federal else '' }}>
+            <label class="form-check-label" for="esf_federal">Federal</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_estadual" value="Estadual"
+            {{ 'checked' if prova.esf_estadual else '' }}>
+            <label class="form-check-label" for="esf_estadual">Estadual</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esf_municipal" value="Municipal"
+            {{ 'checked' if prova.esf_municipal else '' }}>
+            <label class="form-check-label" for="esf_municipal">Municipal</label>
+          </div>
+        </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Banca</span>
+              </div>
+              <input type="text" class="form-control" id="banca" value="{{prova.banca}}">
+          </div>
+      </div>
+      <div class="col">
+          <span style="width:1em;"></span>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="tipo_mult" value="tipo_mult"
+            {{ 'checked' if prova.tipo_mult else '' }}>
+            <label class="form-check-label" for="tipo_mult">Múltipla Escolha</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="tipo_ce" value="tipo_ce"
+            {{ 'checked' if prova.tipo_ce else '' }}>
+            <label class="form-check-label" for="tipoo_ce">Certo ou Errado</label>
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col-sm-3">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Área</span>
+              </div>
+              <input type="text" class="form-control" id="prova_area" value="{{prova.area}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_sup" value="esc_sup"
+            {{ 'checked' if prova.esc_sup else '' }}>
+            <label class="form-check-label" for="tipo_mult">Nível Superior</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_med" value="esc_med"
+            {{ 'checked' if prova.esc_med else '' }}>
+            <label class="form-check-label" for="tipoo_ce">Nível Médio</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="esc_fund" value="esc_fund"
+            {{ 'checked' if prova.esc_fund else '' }}>
+            <label class="form-check-label" for="tipoo_ce">Nível Fundamental</label>
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Órgão/Instituto</span>
+              </div>
+              <input type="text" class="form-control" id="prova_inst" value="{{prova.orgao}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Órgão/Instituto - UF</span>
+            </div>
+            <input type="text" class="form-control" id="prova_inst_uf" value="{{prova.uf}}">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Órgão/Instituto - Município</span>
+          </div>
+          <input type="text" class="form-control" id="prova_inst_mun" value="{{prova.municipio}}">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Supercargo</span>
+              </div>
+              <input type="text" class="form-control" id="prova_supercargo" value="{{prova.supercargo}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Cargo</span>
+            </div>
+            <input type="text" class="form-control" id="prova_cargo" value="{{prova.cargo}}">
+        </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col-sm-3">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Total de inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_tot" value="{{prova.insc_tot}}">
+          </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Amplo-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_amplo" value="{{prova.insc_amplo}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Amplo-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_amplo" value="{{prova.nmax_amplo}}">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Amplo-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_amplo" value="{{prova.corte_amplo}}">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Negros-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_negros" value="{{prova.insc_negros}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Negros-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_negros" value="{{prova.nmax_negros}}">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Negros-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_negros" value="{{prova.corte_negros}}">
+      </div>
+      </div>
+    </div><br>
+
+    <div class='row'>
+      <div class="col">
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Deficientes-inscritos</span>
+              </div>
+              <input type="number" class="form-control" id="ninsc_def" value="{{prova.insc_def}}">
+          </div>
+      </div>
+      <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Deficientes-nota máxima</span>
+            </div>
+            <input type="number" class="form-control" id="notamax_def" value="{{prova.nmax_def}}">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Deficientes-nota de corte</span>
+          </div>
+          <input type="number" class="form-control" id="notacorte_def" value="{{prova.corte_def}}">
+      </div>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" id="savetest" class="btn btn-success">Salvar</button>
+      </div>
+      <div class="col">
+        <button type="button" id="cleartest" class="btn btn-dark float-right">Clear</button>
+      </div>
+    </div><br>
+
+  </div>
+</body>
+</html>
