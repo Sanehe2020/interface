@@ -112,7 +112,7 @@ def cleartest():
 def questoes():
     init_cache(cache, 'quest')
     init_cache(cache, 'assert')
-    return render_template('questionmenu.html', quests=cache['prova']['questoes'], quest=cache['quest'])
+    return render_template('questionmenu.html', quests=cache['prova']['questoes'], quest=cache['quest'], cache=cache)
 
 @app.route('/addquestion', methods=['POST'])
 def addquestion():

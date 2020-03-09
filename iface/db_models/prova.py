@@ -2,11 +2,13 @@ from iface import db
 
 #constants
 SMALL_TXT_SIZE = 128
+LONG_TXT_SIZE = 256
 ANO_SIZE = 4
 UF_SIZE = 2
 
 class Prova(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    repr = db.Column(db.String(LONG_TXT_SIZE))
     ano = db.Column(db.String(ANO_SIZE))
     esf_federal = db.Column(db.Boolean)
     esf_estadual = db.Column(db.Boolean) 
@@ -64,6 +66,7 @@ class Prova(db.Model):
         self.insc_def = insc_def
         self.nmax_def = nmax_def
         self.corte_def = corte_def
+        self.repr = self.__repr__()
 
     def __repr__(self):
 
