@@ -132,10 +132,11 @@ def addquestion():
     #add quest to database
     db.session.add(quest)
     db.session.commit()
-    #update cache to show the new question  
-    cache['prova']['questoes'].append(quest)
+    #update cache to show the new question
     qs = QuestSchema()
-    return qs.dump(quest)
+    qdump = qs.dump(quest) 
+    cache['prova']['questoes'].append(qdump)
+    return qdump
 
 @app.route('/datafromdb', methods=['POST'])
 def datafromdb():
@@ -145,4 +146,4 @@ def datafromdb():
 
 @app.route('/cache')
 def cashview():
-    return jsonify(cache)
+    return cache
