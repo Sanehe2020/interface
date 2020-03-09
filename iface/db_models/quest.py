@@ -15,6 +15,7 @@ class Quest(db.Model):
     anulada = db.Column(db.Boolean)
     desatualizada = db.Column(db.Boolean)
     obs = db.Column(db.Text)
+    assertivas = db.relationship('Assert', backref='questao', cascade='all, delete-orphan', lazy='dynamic')
 
     def __init__(self, numero, materia, texto_associado, corpo, anulada, desatualizada, obs) :
         self.numero = numero

@@ -13,19 +13,28 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.abspath(os.path.dirname(__fil
 app.config['ALLOWED_EXTENSIONS'] = set(['csv', 'xls'])
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///smartlegis.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 #Globals
 cache = {}
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-#Context for the 'fask shell command' and importing of database classes
+#Context for the 'flask shell command' and importing of database classes
 from iface.db_models.quest import Quest
 from iface.db_models.prova import Prova
-from iface.cacheutils import init_cache, getdbtests, table2cache
+from iface.db_models.assertiva import Assert
+from iface.db_models.oj import Oj
+from iface.db_models.sumula import Sumula
+from iface.db_models.enunciado import Enunciado
+from iface.db_models.lei import Lei, LeiArtigo, LeiArtigoAlinea, LeiInciso, LeiIncisoAlinea, LeiParagrafo, LeiParagrafoAlinea, LeiParagrafoInciso, LeiParagrafoIncisoAlinea
+from iface.cacheutils import init_cache, getdbtests, table2cache, dummy_data
 @app.shell_context_processor
 def make_shell_context():
-    return {'db':db, 'ma':ma, 'Prova':Prova, 'Quest':Quest}
+    return {'db':db, 'ma':ma, 'Prova':Prova, 'Quest':Quest, 'Assert':Assert, 'Oj':Oj, 'Sumula':Sumula,
+    'Lei':Lei, 'LeiArtigo':LeiArtigo, 'LeiArtigoAlinea':LeiArtigoAlinea, 'LeiInciso':LeiInciso,
+    'LeiIncisoAlinea':LeiIncisoAlinea, 'LeiParagrafo':LeiParagrafo, 'LeiParagrafoAlinea':LeiParagrafoAlinea,
+    'LeiParagrafoInciso':LeiParagrafoInciso, 'LeiParagrafoIncisoAlinea':LeiParagrafoIncisoAlinea}
 
 @app.route('/')
 def index():
@@ -90,7 +99,7 @@ def savetest():
     if quests:
         for q in quests:
             #map quest to db class
-            quest = Quest(**q)
+            quest = Quest(q['numero'],q['materia'],q['texto_associado'],q['corpo'],q['anulada'],q['desatualizada'],q['obs'])
             quest.prova=prova
             db.session.add(quest)
             db.session.commit()

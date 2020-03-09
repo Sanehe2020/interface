@@ -1,32 +1,30 @@
-from iface.db_models import prova, quest
-from iface.db_schemas import prova_schema, quest_schema
+from iface.db_models import prova, quest, assertiva
+from iface.db_schemas import prova_schema, quest_schema, assert_schema
 
 def init_cache(cache, mode='all'):
-    p = prova.Prova('','','',False, False,False,'',False,False,'',False,False,False,'','','',0,0,0.0,0.0,0,0.0,0.0,0,0.0,0.0)
+    #instantiating 'blank' models and its schemas
+    p = prova.Prova('','','',False, False,False,'',False,False,'',False,False,False,'','','',
+        0,0,0.0,0.0,0,0.0,0.0,0,0.0,0.0)
     q = quest.Quest(0, '','','',False,False,'')
-    ps = prova_schema.ProvaSchema()
-    qs = quest_schema.QuestSchema()
+    a = assertiva.Assert('','',False,'','','')
+    pschema = prova_schema.ProvaSchema()
+    qschema = quest_schema.QuestSchema()
+    aschema = assert_schema.AssertSchema()
 
     #blank test with no questions
-    blank_test = {'prova':ps.dump(p)}
+    blank_test = {'prova':pschema.dump(p)}
     blank_test['prova']['questoes'] = []
 
     #blank quest template with no assertivas
-    blank_quest = {'quest':qs.dump(q)}
+    blank_quest = {'quest':qschema.dump(q)}
     blank_quest['quest']['assertivas'] = []
 
-    #blank assertiva template - missing assertiva implementation
-    blank_assert = {
-        'assert':
-        {
-            'letra':  '',
-            'corpo': '',
-            'correta': False,
-            'jurispridencia': '',
-            'doutrinha': '',
-            'obs': ''
-        }
-    }
+    #blank assertiva template with no legis
+    blank_assert = {'assert':aschema.dump(a)}
+    blank_assert['assert']['ojs'] = []
+    blank_assert['assert']['sumulas'] = []
+    blank_assert['assert']['enunciados'] = []
+    blank_assert['assert']['leis'] = []
 
     mode_selector = {
         'prova':   lambda c: c.update(blank_test),
@@ -77,98 +75,31 @@ def table2cache(cache, prova_id):
     cache.update({'prova':temp})
 
 def dummy_data(cache):
-    data = {
-        'prova':
-        {
-            'ano': 2050,
-            'supercargo': 'Procurador',
-            'esf_federal': False,
-            'esf_estadual': False, 
-            'esf_municipal': True, 
-            'banca': 'CESPE',
-            'tipo_mult': False, 
-            'tipo_ce': True,
-            'area': 'Jurídica', 
-            'esc_sup': True, 
-            'esc_med': False, 
-            'esc_fund': False, 
-            'orgao': 'COGEM', 
-            'uf': 'AP', 
-            'municipio': 'Macapá', 
-            'supercargo': 'Procurador', 
-            'cargo': 'Procurador Municipal',
-            'insc_tot': 1000, 
-            'insc_amplo': 990, 
-            'nmax_amplo': 95, 
-            'corte_amplo': 80, 
-            'insc_negros': 200, 
-            'nmax_negros': 85, 
-            'corte_negros': 70,
-            'insc_def': 50, 
-            'nmax_def': 60,
-            'corte_def': 55,
-            'questoes': []
-        }
-    }
+    dummy_prova = prova.Prova(2050,'Procurador','Procurador Municipal',False,False, True,'CESPE',False,True,'Jurídica',
+        True,False,False,'COGEM','AP','Macapá',1000,990,95,80,200,85,70,50,60,55)
+    dummy_quest1 = quest.Quest(1,'Direito tributário','','Sou o corpitcho de uma questão Neto 1',True,False,
+        "una observación")
+    dummy_quest2 = quest.Quest(2,'Direito tributário','','Sou o corpitcho de uma questão Neto 2',False,False,
+        "una observación")
+    dummy_assertiva1 = assertiva.Assert('a','sou a assertiva 1',False,'juris 1','doutrina 1','obs 1')
+    dummy_assertiva2 = assertiva.Assert('b','sou a assertiva 2',False,'juris 2','doutrina 2','obs 2')
+    dummy_assertiva3 = assertiva.Assert('c','sou a assertiva 3',True,'juris 3','doutrina 3','obs 3')
+    dummy_assertiva4 = assertiva.Assert('d','sou a assertiva 4',False,'juris 4','doutrina 4','obs 4')
+    dummy_assertiva5 = assertiva.Assert('e','sou a assertiva 5',False,'juris 5','doutrina 5','obs 5')
 
-    dummy_quest1 = {
-        'id': 1,
-        'numero': 1,
-        'materia': 'Direito tributário',
-        'texto_associado': None,
-        'corpo': 'Sou o corpitcho de uma questão Neto 1',
-        'anulada': True,
-        'desatualizada': False,
-        'obs': "una observación",
-        'assertivas': []
-    }
+    pschema = prova_schema.ProvaSchema()
+    qschema = quest_schema.QuestSchema()
+    aschema = assert_schema.AssertSchema()
 
-    dummy_quest2 = {
-        'id': 2,
-        'numero': 2,
-        'materia': 'Direito tributário',
-        'texto_associado': None,
-        'corpo': 'Sou o corpitcho de uma questão Neto 2',
-        'anulada': True,
-        'desatualizada': False,
-        'obs': "una observación",
-        'assertivas': []
-    }
-    
-    dummy_assertiva1 = {
-        'letra':  'a',
-        'corpo': 'sou a assertiva 1',
-        'correta': False,
-        'jurispridencia': 'juris 1',
-        'doutrinha': 'doutrina 1',
-        'obs': 'obs1'
-    }
-    dummy_assertiva2 = {
-        'letra':  'b',
-        'corpo': 'sou a assertiva 2',
-        'correta': False,
-        'jurispridencia': None,
-        'doutrinha': None,
-        'obs': None
+    questoes = [dummy_quest1, dummy_quest2]
+    qdumps = [qschema.dump(questao) for questao in questoes]
+    assertivas = [dummy_assertiva1, dummy_assertiva2, dummy_assertiva3, dummy_assertiva4, dummy_assertiva5]
+    adumps = [aschema.dump(assertiva) for assertiva in assertivas]
 
-    }
-    dummy_assertiva3 = {
-        'letra':  'c',
-        'corpo': 'sou a assertiva 3',
-        'correta': True,
-        'jurispridencia': None,
-        'doutrinha': None,
-        'obs': None
-    }
-    dummy_assertiva4 = {
-        'letra':  'd',
-        'corpo': 'sou a assertiva 4',
-        'correta': False,
-        'jurispridencia': None,
-        'doutrinha': None,
-        'obs': None
-    }
+    for qdump in qdumps:
+        qdump['assertivas'] = adumps
 
-    dummy_quest1['assertivas'] = [dummy_assertiva1, dummy_assertiva2, dummy_assertiva3, dummy_assertiva4]
-    data['prova']['questoes'] = [dummy_quest1, dummy_quest2]
-    cache.update(data)
+    test = pschema.dump(dummy_prova)
+    test['questoes'] = qdumps
+
+    cache.update({'prova':test})
