@@ -12,18 +12,18 @@
           </span>
         </a>
         {% for quest in quests %}
-        <a class="nav-link" id="questao{{quest.numero}}-tab" data-toggle="pill" href="#v-pills-questao{{quest.numero}}" role="tab" aria-controls="v-pills-questao-{{quest.numero}}" aria-selected="false">Questão {{quest.numero}}</a>
+        <a class="nav-link" id="questao{{quest.id}}-tab" data-toggle="pill" href="#v-pills-questao{{quest.id}}" role="tab" aria-controls="v-pills-questao-{{quest.id}}" aria-selected="false">Questão {{quest.numero}}</a>
         {% endfor %}
       </div>
     </div>
     <div class="col">
       <div class="tab-content" id="v-pills-tabContent2">
         <div class="tab-pane fade show active" id="addquest" role="tabpanel">
-          {% include 'question.html'%}
+          {% include 'questionTab.html'%}
         </div>
         {% for quest in quests %}
-        <div class="tab-pane fade" id="v-pills-questao{{quest.numero}}" role="tabpanel">
-          {% include 'question.html'%}
+        <div class="tab-pane fade" id="v-pills-questao{{quest.id}}" role="tabpanel">
+          {% include 'questionTab.html'%}
         </div>
         {% endfor %}
       </div>
@@ -38,24 +38,23 @@
   $(document).ready(function() {
     //top of the screen when clicking pills
     {% for quest in quests %}
-    $('#questao{{quest.numero}}-tab').on('click', function(){
+    $('#questao{{quest.id}}-tab').on('click', function(){
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
     {% endfor %}
 
     //add new question - elements in 'question.html'
-    //#save-q0 because blank_question.numero=0
+    //#save-qNone because blank_question.numero=0
     var params = {}
-    $('#save-q0').on('click', function(){
-      console.log('cliquei')
-      params = {numero: $('#numero-q0').val(),
-                  materia: $('#materia-q0').val(),
-                  texto_associado: $('#texto_associado-q0').val(),
-                  corpo: $('#corpo-q0').val(),
-                  anulada: $('#anulada-q0').prop('checked'),
-                  desatualizada: $('#desatualizada-q0').prop('checked'),
-                  obs: $('#obs-q0').val()
+    $('#save-qNone').on('click', function(){
+      params = {numero: $('#numero-qNone').val(),
+                  materia: $('#materia-qNone').val(),
+                  texto_associado: $('#texto_associado-qNone').val(),
+                  corpo: $('#corpo-qNone').val(),
+                  anulada: $('#anulada-qNone').prop('checked'),
+                  desatualizada: $('#desatualizada-qNone').prop('checked'),
+                  obs: $('#obs-qNone').val()
       };
      
       r = $.post("{{url_for('addquestion')}}", params);
@@ -64,7 +63,7 @@
 
     //edit existing questions
     {% for q in quests %}
-    $('#save-q{{q.numero}}').on('click', function(){
+    $('#save-q{{q.id}}').on('click', function(){
       console.log('editing q{{q.numero}}')
     });
     {% endfor %}
