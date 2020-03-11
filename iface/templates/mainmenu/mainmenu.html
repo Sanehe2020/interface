@@ -21,7 +21,7 @@
     {% endwith %}
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-cadastro" role="tabpanel" aria-labelledby="v-pills-home-cadastro">
-          {% include 'prova.html' %}
+          {% include 'mainmenu/prova.html' %}
         </div>
         <div class="tab-pane fade" id="v-pills-arquivo" role="tabpanel" aria-labelledby="v-pills-arquivo-tab">
           <form method="post" action="{{url_for('datafromfile')}}" enctype="multipart/form-data">
@@ -40,7 +40,8 @@
             <h4 style="color: green">Provas no Banco de Dados</h4>
             <ol>
               {% for test in dbtests %}
-              <li><button class='btn btn-light' id='test-{{test.id}}-btn'>{{test.repr}}</button></li><br>
+              <li><button class='btn btn-light' id='test-{{test.id}}-btn'>{{test.repr}}</button>
+                <button class='btn btn-danger' id='deltest-{{test.id}}-btn'>x</button></li><br>
               {% endfor %}
             </ol>
           </div>
@@ -97,10 +98,18 @@
     });
 
     {% for test in dbtests %}
+    //generating links to edit provas from db
     $('#test-{{test.id}}-btn').on('click', function(){
       r = $.post("{{url_for('datafromdb')}}", {prova_id:{{test.id}}});
       r.then(data => {window.location.href = "{{url_for('questoes')}}"});
     });
+
+    //remove test from db
+    $('#deltest-{{test.id}}-btn').on('click', function(){
+      r = $.post("{{url_for('deltestfromdb')}}", {prova_id:{{test.id}}});
+      r.then(data => {window.location.href = "{{url_for('mainmenu')}}"});
+    });
+
     {% endfor %}
 
   });

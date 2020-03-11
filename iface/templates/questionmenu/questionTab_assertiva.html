@@ -1,0 +1,174 @@
+{% for assert in quest.assertivas %} 
+    <div class="container" style="color:green;">
+        <h4>Assertiva ID #{{assert.id}}</h4>
+    </div>
+        
+    <div class="container">
+
+        <div class='row'>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Letra</span>
+                    </div>
+                    <input type="text" class="form-control" id="letra-assert{{assert.id}}" value="{{assert.letra}}">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input id="correta-assert{{assert.id}}" type="checkbox" class="form-check-input" 
+                          {{"checked" if assert.correta else ""}}>Questão  Correta
+                    </label>
+                </div>
+            </div>
+        </div><br>
+
+        <div class='row'>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Corpo</span>
+                    </div>
+                    <textarea class="form-control" id="corpo-assert{{assert.id}}" aria-label="corpo">{{assert.corpo}}</textarea>
+                </div>
+            </div>
+        </div><br>
+
+        <div class='row'>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Jurisprudência</span>
+                    </div>
+                    <textarea class="form-control" id="juris-assert{{assert.id}}" aria-label="jurisprudencia">{{assert.jurisprudencia}}</textarea>
+                </div>
+            </div>
+        </div><br>
+
+        <div class='row'>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Doutrina</span>
+                    </div>
+                    <textarea class="form-control" id="doutrina-assert{{assert.id}}" aria-label="doutrina">{{assert.doutrina}}</textarea>
+                </div>
+            </div>
+        </div><br>
+
+        <div class='row'>
+            <div class="col-sm">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Observação</span>
+                    </div>
+                    <textarea class="form-control" id="obs-assert{{assert.id}}" aria-label="obs">{{assert.obs}}</textarea>
+                </div>
+            </div>
+        </div><br>
+
+        <!--Botões de Legislação-->
+        <div class='row'>
+            <div class="col-sm">
+                <button type="button" id="ojs-assert{{assert.id}}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#ojsModal">OJs</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" id="enuncs-assert{{assert.id}}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#enuncsModal">Enunciados</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" id="sumulas-assert{{assert.id}}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#sumulasModal">Sumulas</button>
+            </div>
+            <div class="col-sm">
+                <button type="button" id="leis-assert{{assert.id}}" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#leisModal">Leis</button>
+            </div>
+        </div><br>
+
+        <!--Modais de legislação acionados pelos botões acima-->
+        <div class="modal fade" id="ojsModal" tabindex="-1" role="dialog" aria-labelledby="ojsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="ojsModalLabel">(Assertiva {{assert.letra}}) - Orientações Jurisprudenciais</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% include 'questionmenu/legistabs/ojsTab.html' %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="enuncsModal" tabindex="-1" role="dialog" aria-labelledby="enuncsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="enuncsModalLabel">(Assertiva {{assert.letra}}) - Enunciados</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% include 'questionmenu/legistabs/enuncsTab.html' %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="sumulasModal" tabindex="-1" role="dialog" aria-labelledby="sumulasModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="sumulasModalLabel">(Assertiva {{assert.letra}}) - Sumulas</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% include 'questionmenu/legistabs/sumulasTab.html' %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="leisModal" tabindex="-1" role="dialog" aria-labelledby="leisModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="leisModalLabel">(Assertiva {{assert.letra}}) - Leis</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% include 'questionmenu/legistabs/leisTab.html' %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <button type="button" id="saveassert-assert{{assert.id}}" class="btn btn-primary btn-block">Salvar</button>
+            </div>
+            <div class="col">
+              <button type="button" id="delassert-assert{{assert.id}}" class="btn btn-danger btn-block">Remover</button>
+            </div>
+          </div>
+
+    </div><br><br>
+{% endfor %}

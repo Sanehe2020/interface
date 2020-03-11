@@ -46,7 +46,7 @@ def index():
 def mainmenu():
         prova = cache['prova']
         dbtests = cache['dbtests']
-        return render_template('mainmenu.html', prova=prova, dbtests=dbtests)
+        return render_template('mainmenu/mainmenu.html', prova=prova, dbtests=dbtests)
 
 @app.route('/datafromfile', methods=['POST'])
 def datafromfile():
@@ -121,7 +121,7 @@ def cleartest():
 def questoes():
     init_cache(cache, 'quest')
     init_cache(cache, 'assert')
-    return render_template('questionmenu.html', quests=cache['prova']['questoes'], quest=cache['quest'], cache=cache)
+    return render_template('questionmenu/questionmenu.html', quests=cache['prova']['questoes'], quest=cache['quest'], cache=cache)
 
 @app.route('/addquestion', methods=['POST'])
 def addquestion():
@@ -138,6 +138,47 @@ def addquestion():
     cache['prova']['questoes'].append(qdump)
     return qdump
 
+@app.route('/removequestion', methods=['POST'])
+def removequestion():
+    question_id = request.form['question_id']
+    #remove question from db
+    quest = Quest.query.filter_by(id=question_id).first()
+    db.session.delete(quest)
+    db.session.commit()
+    #update cache to remove deleted question
+    table2cache(cache, cache['prova']['id'])
+    return {'msg': 'question deleted'}
+
+@app.route('/updatequestion', methods=['POST'])
+def updatequestion():
+    q = request.form
+    #temporary model question (probably best using 'schema.load()')
+    temp_quest = Quest(q['numero'],q['materia'],q['texto_associado'],q['corpo'],q['anulada'],q['desatualizada'],q['obs'])
+    #retrieving db instance
+    quest = Quest.query.filter_by(id=q['id']).first()
+    #updating question info
+    quest.numero = temp_quest.numero
+    quest.materia = temp_quest.materia
+    quest.texto_associado = temp_quest.texto_associado
+    quest.corpo = temp_quest.corpo
+    quest.anulada = temp_quest.anulada
+    quest.desatualizada = temp_quest.desatualizada
+    quest.obs = temp_quest.obs
+    db.session.commit()
+    #update cache to remove deleted question
+    table2cache(cache, cache['prova']['id'])
+    return {'msg': 'question updated'}
+
+@app.route('/deltestfromdb', methods=['POST'])
+def deltestfromdb():
+    #delete test
+    test = Prova.query.filter_by(id=request.form['prova_id']).first()
+    db.session.delete(test)
+    db.session.commit()
+    #update cache to reflect changes in the db
+    getdbtests(cache)
+    return {'msg': 'question deleted'}
+    
 @app.route('/datafromdb', methods=['POST'])
 def datafromdb():
     prova_id = request.form['prova_id']

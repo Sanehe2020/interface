@@ -1,0 +1,12 @@
+<ul class="nav nav-tabs" id="ojsTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="listaOjtab-assertiva{{assert.id}}" data-toggle="tab" href="#listaOjcontent-assertiva{{assert.id}}" role="tab" aria-controls="listaOjcontent-assertiva{{assert.id}}" aria-selected="true">OJs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="novaOJtab-assertiva{{assert.id}}" data-toggle="tab" href="#novaOjcontent-assertiva{{assert.id}}" role="tab" aria-controls="novaOjcontent-assertiva{{assert.id}}" aria-selected="false">Nova OJ</a>
+    </li>
+</ul>
+<div class="tab-content" id="ojsContent">
+    <div class="tab-pane fade show active" id="listaOjcontent-assertiva{{assert.id}}" role="tabpanel" aria-labelledby="listaOjtab-assertiva{{assert.id}}"><br>{% include 'questionmenu/legistabs/ojsTab_listaOjs.html' %}</div>
+    <div class="tab-pane fade" id="novaOjcontent-assertiva{{assert.id}}" role="tabpanel" aria-labelledby="novaOJtab-assertiva{{assert.id}}"><br>{% include 'questionmenu/legistabs/ojsTab_novaOj.html' %}</div>
+</div>

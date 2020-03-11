@@ -19,11 +19,11 @@
     <div class="col">
       <div class="tab-content" id="v-pills-tabContent2">
         <div class="tab-pane fade show active" id="addquest" role="tabpanel">
-          {% include 'questionTab.html'%}
+          {% include 'questionmenu/questionTab.html'%}
         </div>
         {% for quest in quests %}
         <div class="tab-pane fade" id="v-pills-questao{{quest.id}}" role="tabpanel">
-          {% include 'questionTab.html'%}
+          {% include 'questionmenu/questionTab.html'%}
         </div>
         {% endfor %}
       </div>
@@ -36,17 +36,40 @@
 {% block bodyscript %}
 <script>
   $(document).ready(function() {
-    //top of the screen when clicking pills
+    var params = {}
+
     {% for quest in quests %}
-    $('#questao{{quest.id}}-tab').on('click', function(){
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
+      //top of the screen when clicking question pills - elements in 'questionmenu.html'
+      $('#questao{{quest.id}}-tab').on('click', function(){
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      });
+
+      //update existing questions - elements in 'question.html'
+       $('#save-q{{quest.id}}').on('click', function(){
+         params = {id: {{quest.id}},
+                  numero: $('#numero-q{{quest.id}}').val(),
+                  materia: $('#materia-q{{quest.id}}').val(),
+                  texto_associado: $('#texto_associado-q{{quest.id}}').val(),
+                  corpo: $('#corpo-q{{quest.id}}').val(),
+                  anulada: $('#anulada-q{{quest.id}}').prop('checked'),
+                  desatualizada: $('#desatualizada-q{{quest.id}}').prop('checked'),
+                  obs: $('#obs-q{{quest.id}}').val()
+         };
+         r = $.post("{{url_for('updatequestion')}}", params);
+         r.then(data => {window.location.href = "{{url_for('questoes')}}"});
+       });
+
+       //remove existing questions - elements in 'question.html'
+       $('#remove-q{{quest.id}}').on('click', function(){
+         params = {question_id: {{quest.id}}}
+         r = $.post("{{url_for('removequestion')}}", params);
+         r.then(data => {window.location.href = "{{url_for('questoes')}}"});
+       });
     {% endfor %}
 
     //add new question - elements in 'question.html'
-    //#save-qNone because blank_question.numero=0
-    var params = {}
+    //#save-qNone because blank_question.id=None
     $('#save-qNone').on('click', function(){
       params = {numero: $('#numero-qNone').val(),
                   materia: $('#materia-qNone').val(),
@@ -61,12 +84,6 @@
       r.then(data => {window.location.href = "{{url_for('questoes')}}"});
     });
 
-    //edit existing questions
-    {% for q in quests %}
-    $('#save-q{{q.id}}').on('click', function(){
-      console.log('editing q{{q.numero}}')
-    });
-    {% endfor %}
 
   });
 </script>

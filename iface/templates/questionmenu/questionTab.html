@@ -1,0 +1,20 @@
+<h5 style="color:gray">{{cache.prova.repr}}</h5>
+
+<ul class="nav nav-tabs" id="questionTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="datatab-q{{quest.id}}" data-toggle="tab" href="#datacontent-q{{quest.id}}" role="tab" aria-controls="datacontent-q{{quest.id}}" aria-selected="true">Questão</a>
+    </li>
+    {% if quest.id %}
+    <li class="nav-item">
+      <a class="nav-link" id="assertivastab-q{{quest.id}}" data-toggle="tab" href="#assertivascontent-q{{quest.id}}" role="tab" aria-controls="assertivascontent-q{{quest.id}}" aria-selected="false">Assertivas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="newassertivatab-q{{quest.id}}" data-toggle="tab" href="#newassertivacontent-q{{quest.id}}" role="tab" aria-controls="newassertivacontent-q{{quest.id}}" aria-selected="false">Nova Assertiva</a>
+    </li>
+    {% endif %}
+</ul>
+<div class="tab-content" id="questionContent">
+    <div class="tab-pane fade show active" id="datacontent-q{{quest.id}}" role="tabpanel" aria-labelledby="datatab-q{{quest.id}}"><br>{% include 'questionmenu/questionTab_question.html' %}</div>
+    <div class="tab-pane fade" id="assertivascontent-q{{quest.id}}" role="tabpanel" aria-labelledby="assertivastab-q{{quest.id}}"><br>{% include 'questionmenu/questionTab_assertiva.html' %}</div>
+    <div class="tab-pane fade" id="newassertivacontent-q{{quest.id}}" role="tabpanel" aria-labelledby="newassertivatab-q{{quest.id}}"><br>{% include 'questionmenu/questionTab_assertiva_blank.html' %}</div>
+</div>

@@ -50,10 +50,10 @@ def init_cache(cache, mode='all'):
     return True
 
 def getdbtests(cache):
-    from sqlalchemy import desc
+    from sqlalchemy import asc
 
     dbtests = {'dbtests':[]}
-    provas = prova.Prova.query.order_by(desc('ano')).all()
+    provas = prova.Prova.query.order_by(asc('ano')).all()
     for p in provas:
         dbtests['dbtests'].append({
            'id': p.id,
@@ -67,11 +67,20 @@ def table2cache(cache, prova_id):
     p = prova.Prova.query.filter_by(id=prova_id).first()
     quests = quest.Quest.query.filter_by(prova_id=prova_id).all()
 
-    ps = prova_schema.ProvaSchema()
-    qs = quest_schema.QuestSchema()
+    pschema = prova_schema.ProvaSchema()
+    qschema = quest_schema.QuestSchema()
+    aschema = assert_schema.AssertSchema()
 
-    temp = ps.dump(p)
-    temp.update({'questoes':qs.dump(quests, many=True)})
+    #dumping test and questions
+    temp = pschema.dump(p)
+    temp.update({'questoes':qschema.dump(quests, many=True)})
+
+    #expanding assertivas for each question
+    for q in temp['questoes']:
+        assertivas = assertiva.Assert.query.filter_by(questao_id=q['id']).all()
+        q['assertivas'] = aschema.dump(assertivas, many=True)
+
+    #finally updating cache
     cache.update({'prova':temp})
 
 def dummy_data(cache):
@@ -101,5 +110,5 @@ def dummy_data(cache):
 
     test = pschema.dump(dummy_prova)
     test['questoes'] = qdumps
-
+    
     cache.update({'prova':test})

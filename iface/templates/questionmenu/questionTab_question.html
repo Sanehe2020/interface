@@ -74,11 +74,41 @@
             </div>
         </div>
     </div><br>
-
-    <div class='row'>
-        <div class="col-sm">
-            <button type="button" id="save-q{{quest.id}}" class="btn btn-success" style="float: right">Salvar</button>
+    
+    <div class="row">
+        <div class="col">
+            <button type="button" id="save-q{{quest.id}}" class="btn btn-success btn-block">Salvar</button>
         </div>
+        {% if quest.id %}
+        <div class="col">
+            <button type="button" id="remove-q{{quest.id}}" class="btn btn-danger btn-block">Remover</button>
+        </div>
+        {% endif %}
+    </div>
+   
+</div>
+
+{% if quest.assertivas %}
+    <div class="container" style="color:green;">
+        <h4>Resumo das Assertivas</h4>
     </div>
 
-</div>
+    {% for assert in quest.assertivas %}
+    <div class="container">
+        <div class="{{'row alert-success' if assert.correta else 'row'}}">
+            <div class="col-sm-1">
+                {{assert.letra}}
+            </div>
+            <div class="col-sm">
+                {{assert.corpo}}
+            </div>
+            <div class="col-sm-1" {{"hidden" if not assert.correta else ""}}>
+                Correta!
+            </div>
+            <div class="col-sm-1" {{"hidden" if assert.correta else ""}}>
+                Incorreta!
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
