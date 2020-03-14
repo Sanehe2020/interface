@@ -28,7 +28,7 @@ from iface.db_models.oj import Oj
 from iface.db_models.sumula import Sumula
 from iface.db_models.enunciado import Enunciado
 from iface.db_models.lei import Lei, LeiArtigo, LeiArtigoAlinea, LeiInciso, LeiIncisoAlinea, LeiParagrafo, LeiParagrafoAlinea, LeiParagrafoInciso, LeiParagrafoIncisoAlinea
-from iface.cacheutils import init_cache, getdbtests, table2cache, dummy_data
+from iface.cacheutils import init_cache, getdbtests, table2cache
 @app.shell_context_processor
 def make_shell_context():
     return {'db':db, 'ma':ma, 'Prova':Prova, 'Quest':Quest, 'Assert':Assert, 'Oj':Oj, 'Sumula':Sumula,
@@ -188,3 +188,39 @@ def datafromdb():
 @app.route('/cache')
 def cashview():
     return cache
+
+#insert dummy data into the DB
+def dummy_data():
+    from iface.db_models.quest import Quest
+    from iface.db_models.assertiva import Assert
+
+    prova = Prova(2050,'Procurador','Procurador Municipal',False,False, True,'CESPE',False,True,'Jurídica',
+        True,False,False,'COGEM','AP','Macapá',1000,990,95,80,200,85,70,50,60,55)
+    
+    quest1 = Quest(1,'Direito tributário','','Sou o corpitcho de uma questão Neto 1',True,False,
+        "una observación")
+    quest1.prova = prova
+
+    quest2 = Quest(2,'Direito tributário','','Sou o corpitcho de uma questão Neto 2',False,False,
+        "una observación")
+    quest2.prova = prova
+
+    assertiva1 = Assert('a','sou a assertiva 1',False,'juris 1','doutrina 1','obs 1')
+    assertiva2 = Assert('b','sou a assertiva 2',False,'juris 2','doutrina 2','obs 2')
+    assertiva3 = Assert('c','sou a assertiva 3',True,'juris 3','doutrina 3','obs 3')
+    assertiva4 = Assert('d','sou a assertiva 4',False,'juris 4','doutrina 4','obs 4')
+    assertiva5 = Assert('e','sou a assertiva 5',False,'juris 5','doutrina 5','obs 5')
+
+    assertivas = [assertiva1, assertiva2, assertiva3, assertiva4, assertiva5]
+    for assertiva in assertivas:
+        assertiva.questao = quest1
+
+    db.session.add(prova)
+    db.session.add(quest1)
+    db.session.add(quest2)
+    db.session.add(assertiva1)
+    db.session.add(assertiva2)
+    db.session.add(assertiva3)
+    db.session.add(assertiva4)
+    db.session.add(assertiva5)
+    db.session.commit()

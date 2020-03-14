@@ -82,33 +82,3 @@ def table2cache(cache, prova_id):
 
     #finally updating cache
     cache.update({'prova':temp})
-
-def dummy_data(cache):
-    dummy_prova = prova.Prova(2050,'Procurador','Procurador Municipal',False,False, True,'CESPE',False,True,'Jurídica',
-        True,False,False,'COGEM','AP','Macapá',1000,990,95,80,200,85,70,50,60,55)
-    dummy_quest1 = quest.Quest(1,'Direito tributário','','Sou o corpitcho de uma questão Neto 1',True,False,
-        "una observación")
-    dummy_quest2 = quest.Quest(2,'Direito tributário','','Sou o corpitcho de uma questão Neto 2',False,False,
-        "una observación")
-    dummy_assertiva1 = assertiva.Assert('a','sou a assertiva 1',False,'juris 1','doutrina 1','obs 1')
-    dummy_assertiva2 = assertiva.Assert('b','sou a assertiva 2',False,'juris 2','doutrina 2','obs 2')
-    dummy_assertiva3 = assertiva.Assert('c','sou a assertiva 3',True,'juris 3','doutrina 3','obs 3')
-    dummy_assertiva4 = assertiva.Assert('d','sou a assertiva 4',False,'juris 4','doutrina 4','obs 4')
-    dummy_assertiva5 = assertiva.Assert('e','sou a assertiva 5',False,'juris 5','doutrina 5','obs 5')
-
-    pschema = prova_schema.ProvaSchema()
-    qschema = quest_schema.QuestSchema()
-    aschema = assert_schema.AssertSchema()
-
-    questoes = [dummy_quest1, dummy_quest2]
-    qdumps = [qschema.dump(questao) for questao in questoes]
-    assertivas = [dummy_assertiva1, dummy_assertiva2, dummy_assertiva3, dummy_assertiva4, dummy_assertiva5]
-    adumps = [aschema.dump(assertiva) for assertiva in assertivas]
-
-    for qdump in qdumps:
-        qdump['assertivas'] = adumps
-
-    test = pschema.dump(dummy_prova)
-    test['questoes'] = qdumps
-    
-    cache.update({'prova':test})

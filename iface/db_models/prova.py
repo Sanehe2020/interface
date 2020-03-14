@@ -86,6 +86,8 @@ class Prova(db.Model):
             esfera = ""
 
         return f'Prova {self.orgao}({self.banca}/{self.ano}) - {self.cargo} {esfera}'
+
+    
         
 
 
